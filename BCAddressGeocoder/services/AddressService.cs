@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using BCAddressGeocoder.Models;
 
@@ -5,9 +6,9 @@ namespace BCAddressGeocoder.Service
 {
     public static class AddressService
     {
-        public static async Task<Response> GetAddresses()
+        public static async Task<Response> GetAddresses(Dictionary<string, string> queryParams)
         {
-            return await UtilService.Get<Response>("/addresses.json");
+            return await UtilService.Get<Response>("/addresses.json", queryParams);
         }
     }
 }

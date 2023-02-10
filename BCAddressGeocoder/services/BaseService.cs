@@ -1,6 +1,9 @@
+using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using Newtonsoft.Json;
 
 namespace BCAddressGeocoder.Service
@@ -11,9 +14,22 @@ namespace BCAddressGeocoder.Service
 
         private static readonly HttpClient httpClient = new HttpClient();
 
-        public static async Task<T> Get<T>(string path)
+        public static async Task<T> Get<T>(string path, Dictionary<string, string> queryParams)
         {
-            using (var httpResponse = await httpClient.GetAsync(url+path, HttpCompletionOption.ResponseHeadersRead))
+            // building uri
+            StringBuilder uri = new StringBuilder();
+            uri.Append(url);
+            uri.Append(path);
+            int i = 0;
+            foreach (var queryParam in queryParams)
+            {
+                uri.Append(++i == 1 ? "?" : "&");
+                uri.Append(queryParam.Key);
+                uri.Append("=");
+                uri.Append(HttpUtility.UrlEncode(queryParam.Value));
+            }
+
+            using (var httpResponse = await httpClient.GetAsync(uri.ToString(), HttpCompletionOption.ResponseHeadersRead))
             {
                 httpResponse.EnsureSuccessStatusCode();
 
