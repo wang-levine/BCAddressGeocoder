@@ -22,7 +22,24 @@ namespace BCAddressGeocoder.Commands
             var response = AddressService.GetAddresses(queryParams).GetAwaiter().GetResult();
             foreach (var address in response.Addresses)
             {
-                WriteObject(address.Properties);
+                WriteObject(new
+                {
+                    address.Properties.FullAddress,
+                    address.Properties.Score,
+                    address.Properties.MatchPrecision,
+                    address.Properties.PrecisionPoints,
+                    address.Properties.SiteName,
+                    address.Properties.UnitDesignator,
+                    address.Properties.UnitNumber,
+                    address.Properties.UnitNumberSuffix,
+                    address.Properties.CivicNumber,
+                    address.Properties.CivicNumberSuffix,
+                    address.Properties.StreetName,
+                    address.Properties.StreetType,
+                    address.Properties.IsStreetTypePrefix,
+                    address.Properties.StreetDirection,
+                    address.Properties.IsStreetDirectionPrefix,
+                });
             }
         }
     }
