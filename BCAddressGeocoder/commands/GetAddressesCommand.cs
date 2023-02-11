@@ -9,14 +9,32 @@ namespace BCAddressGeocoder.Commands
     [OutputType(typeof(Address))]
     public class GetAddressesCommand : PSCmdlet
     {
-        [Parameter(Mandatory = false, Position = 0, ValueFromPipeline = true, ValueFromPipelineByPropertyName = true)]
+        [Parameter(Position = 0)]
         public string AddressString { get; set; }
+
+        [Parameter(Position = 1)]
+        [ValidateSet("any", "accessPoint", "frontDoorPoint", "parcelPoint", "rooftopPoint", "routingPoint")]
+        public string LocationDescriptor { get; set; } = "any";
+
+        [Parameter(Position = 2)]
+        public int MaxResults { get; set; } = 1;
+
+        [Parameter(Position = 3)]
+        [ValidateSet("adaptive", "linear", "none")]
+        public string Interpolation { get; set; } = "adaptive";
+
+        [Parameter(Position = 4)]
+        public bool Echo { get; set; } = true;
 
         protected override void ProcessRecord()
         {
-            var queryParams = new Dictionary<string, string>
+            var queryParams = new Dictionary<string, object>
             {
                 { "addressString", AddressString },
+                { "locationDescriptor", LocationDescriptor },
+                { "maxResults", MaxResults },
+                { "interpolation", Interpolation },
+                { "echo", Echo },
             };
 
             var response = AddressService.GetAddresses(queryParams).GetAwaiter().GetResult();

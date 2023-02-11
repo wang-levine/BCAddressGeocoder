@@ -14,7 +14,7 @@ namespace BCAddressGeocoder.Service
 
         private static readonly HttpClient httpClient = new HttpClient();
 
-        public static async Task<T> Get<T>(string path, Dictionary<string, string> queryParams)
+        public static async Task<T> Get<T>(string path, Dictionary<string, object> queryParams)
         {
             // building uri
             StringBuilder uri = new StringBuilder();
@@ -26,7 +26,7 @@ namespace BCAddressGeocoder.Service
                 uri.Append(++i == 1 ? "?" : "&");
                 uri.Append(queryParam.Key);
                 uri.Append("=");
-                uri.Append(HttpUtility.UrlEncode(queryParam.Value));
+                uri.Append(HttpUtility.UrlEncode(queryParam.Value.ToString()));
             }
 
             using (var httpResponse = await httpClient.GetAsync(uri.ToString(), HttpCompletionOption.ResponseHeadersRead))
