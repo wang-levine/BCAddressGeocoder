@@ -24,6 +24,10 @@ namespace BCAddressGeocoder.Commands
             {
                 WriteObject(new
                 {
+                    address.Type,
+                    GeometryType = address.Geometry.Type,
+                    CRS = $"{address.Geometry.Crs.Type}:{address.Geometry.Crs.Properties.Code}",
+                    Coordinates = $"{address.Geometry.Coordinates[1]}, {address.Geometry.Coordinates[0]}",
                     address.Properties.FullAddress,
                     address.Properties.Score,
                     address.Properties.MatchPrecision,
@@ -39,6 +43,21 @@ namespace BCAddressGeocoder.Commands
                     address.Properties.IsStreetTypePrefix,
                     address.Properties.StreetDirection,
                     address.Properties.IsStreetDirectionPrefix,
+                    address.Properties.StreetQualifier,
+                    address.Properties.LocalityName,
+                    address.Properties.LocalityType,
+                    address.Properties.ElectoralArea,
+                    address.Properties.ProvinceCode,
+                    address.Properties.LocationPositionalAccuracy,
+                    address.Properties.LocationDescriptor,
+                    address.Properties.SiteID,
+                    address.Properties.BlockID,
+                    address.Properties.FullSiteDescriptor,
+                    address.Properties.AccessNotes,
+                    address.Properties.SiteStatus,
+                    SiteRetireDate = address.Properties.SiteRetireDate?.ToString("yyyy-MM-dd"),
+                    ChangeDate = address.Properties.ChangeDate?.ToString("yyyy-MM-dd"),
+                    address.Properties.IsOfficial,
                 });
             }
         }
