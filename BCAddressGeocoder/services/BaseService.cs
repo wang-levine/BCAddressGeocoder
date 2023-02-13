@@ -23,7 +23,7 @@ namespace BCAddressGeocoder.Service
             int i = 0;
             foreach (var queryParam in queryParams)
             {
-                if (queryParam.Value is string && string.IsNullOrEmpty(queryParam.Value.ToString()))
+                if (queryParam.Value == null)
                 {
                     continue;
                 }
