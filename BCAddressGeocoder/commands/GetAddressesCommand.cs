@@ -19,6 +19,9 @@ namespace BCAddressGeocoder.Commands
         [Parameter(Position = 0)]
         public string AddressString { get; set; } = string.Empty;
 
+        /// <summary>
+        /// <para type="description">Describes the nature of the address location.</para>
+        /// </summary>
         [Parameter(Position = 1)]
         [ValidateSet("any", "accessPoint", "frontDoorPoint", "parcelPoint", "rooftopPoint", "routingPoint")]
         public string LocationDescriptor { get; set; } = "any";
