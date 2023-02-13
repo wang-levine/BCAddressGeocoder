@@ -5,10 +5,17 @@ using BCAddressGeocoder.Service;
 
 namespace BCAddressGeocoder.Commands
 {
+    /// <summary>
+    /// <para type="synopsis">Geocode an address</para>
+    /// <para type="description">Represents the set of geocoded and standardized sites and intersections whose address best matches a given query address.</para>
+    /// </summary>
     [Cmdlet(VerbsCommon.Get, "Addresses")]
     [OutputType(typeof(Address))]
     public class GetAddressesCommand : PSCmdlet
     {
+        /// <summary>
+        /// <para type="description">Civic or intersection address as a single string.</para>
+        /// </summary>
         [Parameter(Position = 0)]
         public string AddressString { get; set; } = string.Empty;
 
